@@ -13,17 +13,20 @@
  */
 
 // This config file is for the demo only. It is in .gitignore and will not be pushed to git repo.
-var config = {
-    apiKey: "AIzaSyCpAgj0zFEcDn2AFjqeFCoAZiRgla0lyMU",
-    authDomain: "learntamilauth.firebaseapp.com",
-    databaseURL: "https://learntamilauth.firebaseio.com",
-    projectId: "learntamilauth",
-    storageBucket: "learntamilauth.appspot.com",
-    messagingSenderId: "112932855859"
-  };
-  firebase.initializeApp(config);
-  
-  // Google OAuth Client ID, needed to support One-tap sign-up.
-  // Set to null if One-tap sign-up is not supported.
-  var CLIENT_ID =
-      '112932855859-78h8c48di80rj1ec2a091gbe5oa94dls.apps.googleusercontent.com';
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const config = {
+    apiKey: "AIzaSyB6nD2T59EJaO9OVSXb-_qwTwppZ0YQzuk",
+    authDomain: "cybrilla-kyc.firebaseapp.com",
+    databaseURL: "https://cybrilla-kyc.firebaseio.com",
+    projectId: "cybrilla-kyc",
+    storageBucket: "cybrilla-kyc.appspot.com",
+    messagingSenderId: "844386329342",
+    appId: "1:844386329342:web:d879bd83107f4c5a5efbaf",
+    measurementId: "G-4XHDRFWB5F"
+};
+firebase.initializeApp(config);
+
+// Google OAuth Client ID, needed to support One-tap sign-up.
+// Set to null if One-tap sign-up is not supported.
+var CLIENT_ID =
+    '112932855859-78h8c48di80rj1ec2a091gbe5oa94dls.apps.googleusercontent.com';
