@@ -22,8 +22,12 @@ var httpServer = http.createServer(app);
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://tymlynotice.firebaseio.com"
+    databaseURL: "https://cybrilla-kyc.firebaseio.com"
 });
+
+const db = admin.firestore();
+// Get a reference to the storage service, which is used to create references in your storage bucket
+// var storage = firebase.storage();
 
 router.use(function(req, res, next) {
     console.log("/" + req.method);
@@ -87,6 +91,40 @@ router.get("/user", function(req, res) {
             // Handle error
             return res.end('{"uid":"invalid"}');
         });
+});
+
+router.get("/proceed", function(req, res) {
+    console.log("/proceed");
+    var idToken = req.query.idToken;
+    console.log("idToken is " + idToken);
+    admin.auth().verifyIdToken(idToken)
+        .then(function(decodedToken) {
+            var uid = decodedToken.uid;
+            var errors = false;
+
+            admin.auth().getUser(uid)
+                .then(function(userRecord) {
+                    // See the UserRecord reference doc for the contents of userRecord.
+                    console.log("Successfully fetched user data:", userRecord.toJSON());
+                    console.log("user email is " + userRecord.email);
+                    console.log("req.query.pan is " + req.query.pan);
+                    console.log("req.query.panLocation is " + req.query.panLocation);
+                    var docRef = db.collection('ckyc').doc(userRecord.uid);
+                    docRef.set({
+                        pan: req.query.pan,
+                        panLocation: req.query.panLocation
+                    });
+                })
+                .catch(function(error) {
+                    return res.end('{"uid":"invalid"}');
+                    console.log("Error fetching user data:", error);
+                });
+            // ...
+        }).catch(function(error) {
+            // Handle error
+            return res.end('{"uid":"invalid"}');
+        });
+
 });
 
 router.get("/apply", function(req, res) {

@@ -28,6 +28,7 @@
     <script src="lib/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="lib/firebaseui.css" />
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -55,12 +56,6 @@
                 <li class="nav-item active non-user-only">
                     <a class="nav-link" href="/admin">Admin</a>
                 </li>
-                <li class="nav-item active user-only d-none">
-                    <a class="nav-link" href="/subscription">Subscription</a>
-                </li>
-                <li class="nav-item active user-only d-none">
-                    <a class="nav-link" href="/ask">Ask</a>
-                </li>
                 <li class="nav-item dropdown user-only d-none">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown09">
@@ -79,56 +74,465 @@
         <div id="loaded" class="hiddenfire">
             <div id="main">
                 <div id="user-signed-in" class="hiddenfire">
-                    <!--Modal: Name-->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-sm" role="document">
-
-                            <!--Content-->
-                            <div class="modal-content">
-
-                                <!--Body-->
-                                <div class="modal-body mb-0 p-0">
-
-                                    <div class="embed-responsive embed-responsive-9by16 z-depth-1-half">
-                                        <iframe id="iframeYoutube" class="embed-responsive-item" src="https://www.youtube.com/embed/K7dz-bymqF8?rel=0" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                    </div>
-
-                                </div>
-
-                                <!--Footer-->
-                                <div class="modal-footer justify-content-center">
-                                    <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
-
-                                </div>
-
+                    <div id="ckycin" class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-white">
+                        <h1 class="display-4 font-weight-normal">KYC Form</h1>
+                    </div>
+                    <form id="kyc-form" class="needs-validation" novalidate>
+                        <input id="idToken" name="idToken" type="hidden">
+                        <input id="panLocation" name="panLocation" type="hidden">
+                        <h2 class="display-8 font-weight-normal">1.Identity Details</h2>
+                        <h4 class="display-10 font-weight-normal">PAN</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputPan">PAN</label>
+                                <input type="text" class="form-control" id="inputPan" placeholder="PAN" required>
                             </div>
-                            <!--/.Content-->
-
+                            <div class="custom-file form-group col-md-6">
+                                <label for="exampleFormControlFile1">Duly Attested Copy of your PAN card</label>
+                                <input type="file" onchange="uploadPan()" class="form-control-file" id="panFile1">
+                            </div>
                         </div>
-                    </div>
-                    <!--Modal: Name-->
-
-                    <div id="deckofcards" class="card-deck">
-                    </div>
+                        <h4 class="display-10 font-weight-normal">Your Name</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="prefixYourName">Your Name Prefix</label>
+                                <select id="prefixYourName" class="form-control">
+                              <option selected>Ms</option>
+                              <option>Mr</option>
+                              <option>Mrs</option>
+                            </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="yourFirstName">Your First Name</label>
+                                <input type="text" class="form-control" id="yourFirstName" placeholder="Your First Name">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="yourMiddleName">Your Middle Name</label>
+                                <input type="text" class="form-control" id="yourMiddleName" placeholder="Your Middle Name">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="yourLastName">Your Last Name</label>
+                                <input type="text" class="form-control" id="yourLastName" placeholder="Your Last Name">
+                            </div>
+                        </div>
+                        <h4 class="display-10 font-weight-normal">Maiden Name</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="prefixMaidenName">Maiden Name Prefix</label>
+                                <select id="prefixMaidenName" class="form-control">
+                              <option selected>Ms</option>
+                              <option>Mr</option>
+                              <option>Mrs</option>
+                            </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="maidenFirstName">Maiden First Name</label>
+                                <input type="text" class="form-control" id="maidenFirstName" placeholder="Maiden First Name">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="maidenMiddleName">Maiden Middle Name</label>
+                                <input type="text" class="form-control" id="maidenMiddleName" placeholder="Maiden Middle Name">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="maidenLastName">Maiden Last Name</label>
+                                <input type="text" class="form-control" id="maidenLastName" placeholder="Maiden Last Name">
+                            </div>
+                        </div>
+                        <h4 class="display-10 font-weight-normal">Father/Spouse Name</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="prefixFatherOrSpouseName">Father/Spouse Name Prefix</label>
+                                <select id="prefixFatherOrSpouseName" class="form-control">
+                              <option selected>Ms</option>
+                              <option>Mr</option>
+                              <option>Mrs</option>
+                            </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="fatherOrSpouseFirstName">Father/Spouse First Name</label>
+                                <input type="text" class="form-control" id="fatherOrSpouseFirstName" placeholder="Father/Spouse First Name">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="fatherOrSpouseMiddleName">Father/Spouse Middle Name</label>
+                                <input type="text" class="form-control" id="fatherOrSpouseMiddleName" placeholder="Father/Spouse Middle Name">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="fatherOrSpouseLastName">Father/Spouse Last Name</label>
+                                <input type="text" class="form-control" id="fatherOrSpouseLastName" placeholder="Father/Spouse Last Name">
+                            </div>
+                        </div>
+                        <h4 class="display-10 font-weight-normal">Mother Name</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="prefixMotherName">Mother Name Prefix</label>
+                                <select id="prefixMotherName" class="form-control">
+                              <option selected>Ms</option>
+                              <option>Mr</option>
+                              <option>Mrs</option>
+                            </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="maidenFirstName">Mother First Name</label>
+                                <input type="text" class="form-control" id="maidenFirstName" placeholder="Mother First Name">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="maidenMiddleName">Mother Middle Name</label>
+                                <input type="text" class="form-control" id="maidenMiddleName" placeholder="Mother Middle Name">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="maidenLastName">Mother Last Name</label>
+                                <input type="text" class="form-control" id="maidenLastName" placeholder="Mother Last Name">
+                            </div>
+                        </div>
+                        <h4 class="display-10 font-weight-normal">Your Date of Birth</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <input type="date" class="form-control" id="birthday" name="birthday">
+                            </div>
+                        </div>
+                        <h4 class="display-10 font-weight-normal">Gender</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="genderSelect">Select your gender</label>
+                                <select id="genderSelect" class="form-control">
+                              <option>Male</option>
+                              <option>Female</option>
+                              <option>Transgender</option>
+                            </select>
+                            </div>
+                        </div>
+                        <h4 class="display-10 font-weight-normal">Marital Status</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="maritalStatusSelect">Select your Marital Status</label>
+                                <select id="maritalStatusSelect" class="form-control">
+                              <option>Married</option>
+                              <option>Unmarried</option>
+                              <option>Others</option>
+                            </select>
+                            </div>
+                        </div>
+                        <h4 class="display-10 font-weight-normal">Citizenship</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="citizenshipSelect">Select your Citizenship</label>
+                                <select id="citizenshipSelect" class="form-control">
+                                    <option>Afghanistan</option>
+                                    <option>Åland Islands</option>
+                                    <option>Albania</option>
+                                    <option>Algeria</option>
+                                    <option>American Samoa</option>
+                                    <option>Andorra</option>
+                                    <option>Angola</option>
+                                    <option>Anguilla</option>
+                                    <option>Antarctica</option>
+                                    <option>Antigua and Barbuda</option>
+                                    <option>Argentina</option>
+                                    <option>Armenia</option>
+                                    <option>Aruba</option>
+                                    <option>Australia</option>
+                                    <option>Austria</option>
+                                    <option>Azerbaijan</option>
+                                    <option>Bahrain</option>
+                                    <option>Bahamas</option>
+                                    <option>Bangladesh</option>
+                                    <option>Barbados</option>
+                                    <option>Belarus</option>
+                                    <option>Belgium</option>
+                                    <option>Belize</option>
+                                    <option>Benin</option>
+                                    <option>Bermuda</option>
+                                    <option>Bhutan</option>
+                                    <option>Bolivia, Plurinational State of</option>
+                                    <option>Bonaire, Sint Eustatius and Saba</option>
+                                    <option>Bosnia and Herzegovina</option>
+                                    <option>Botswana</option>
+                                    <option>Bouvet Island</option>
+                                    <option>Brazil</option>
+                                    <option>British Indian Ocean Territory</option>
+                                    <option>Brunei Darussalam</option>
+                                    <option>Bulgaria</option>
+                                    <option>Burkina Faso</option>
+                                    <option>Burundi</option>
+                                    <option>Cambodia</option>
+                                    <option>Cameroon</option>
+                                    <option>Canada</option>
+                                    <option>Cape Verde</option>
+                                    <option>Cayman Islands</option>
+                                    <option>Central African Republic</option>
+                                    <option>Chad</option>
+                                    <option>Chile</option>
+                                    <option>China</option>
+                                    <option>Christmas Island</option>
+                                    <option>Cocos (Keeling) Islands</option>
+                                    <option>Colombia</option>
+                                    <option>Comoros</option>
+                                    <option>Congo</option>
+                                    <option>Congo, the Democratic Republic of the</option>
+                                    <option>Cook Islands</option>
+                                    <option>Costa Rica</option>
+                                    <option>Côte d'Ivoire</option>
+                                    <option>Croatia</option>
+                                    <option>Cuba</option>
+                                    <option>Curaçao</option>
+                                    <option>Cyprus</option>
+                                    <option>Czech Republic</option>
+                                    <option>Denmark</option>
+                                    <option>Djibouti</option>
+                                    <option>Dominica</option>
+                                    <option>Dominican Republic</option>
+                                    <option>Ecuador</option>
+                                    <option>Egypt</option>
+                                    <option>El Salvador</option>
+                                    <option>Equatorial Guinea</option>
+                                    <option>Eritrea</option>
+                                    <option>Estonia</option>
+                                    <option>Ethiopia</option>
+                                    <option>Falkland Islands (Malvinas)</option>
+                                    <option>Faroe Islands</option>
+                                    <option>Fiji</option>
+                                    <option>Finland</option>
+                                    <option>France</option>
+                                    <option>French Guiana</option>
+                                    <option>French Polynesia</option>
+                                    <option>French Southern Territories</option>
+                                    <option>Gabon</option>
+                                    <option>Gambia</option>
+                                    <option>Georgia</option>
+                                    <option>Germany</option>
+                                    <option>Ghana</option>
+                                    <option>Gibraltar</option>
+                                    <option>Greece</option>
+                                    <option>Greenland</option>
+                                    <option>Grenada</option>
+                                    <option>Guadeloupe</option>
+                                    <option>Guam</option>
+                                    <option>Guatemala</option>
+                                    <option>Guernsey</option>
+                                    <option>Guinea</option>
+                                    <option>Guinea-Bissau</option>
+                                    <option>Guyana</option>
+                                    <option>Haiti</option>
+                                    <option>Heard Island and McDonald Islands</option>
+                                    <option>Holy See (Vatican City State)</option>
+                                    <option>Honduras</option>
+                                    <option>Hong Kong</option>
+                                    <option>Hungary</option>
+                                    <option>Iceland</option>
+                                    <option selected>India</option>
+                                    <option>Indonesia</option>
+                                    <option>Iran, Islamic Republic of</option>
+                                    <option>Iraq</option>
+                                    <option>Ireland</option>
+                                    <option>Isle of Man</option>
+                                    <option>Israel</option>
+                                    <option>Italy</option>
+                                    <option>Jamaica</option>
+                                    <option>Japan</option>
+                                    <option>Jersey</option>
+                                    <option>Jordan</option>
+                                    <option>Kazakhstan</option>
+                                    <option>Kenya</option>
+                                    <option>Kiribati</option>
+                                    <option>Korea, Democratic People's Republic of</option>
+                                    <option>Korea, Republic of</option>
+                                    <option>Kuwait</option>
+                                    <option>Kyrgyzstan</option>
+                                    <option>Lao People's Democratic Republic</option>
+                                    <option>Latvia</option>
+                                    <option>Lebanon</option>
+                                    <option>Lesotho</option>
+                                    <option>Liberia</option>
+                                    <option>Libya</option>
+                                    <option>Liechtenstein</option>
+                                    <option>Lithuania</option>
+                                    <option>Luxembourg</option>
+                                    <option>Macao</option>
+                                    <option>Macedonia, the Former Yugoslav Republic of</option>
+                                    <option>Madagascar</option>
+                                    <option>Malawi</option>
+                                    <option>Malaysia</option>
+                                    <option>Maldives</option>
+                                    <option>Mali</option>
+                                    <option>Malta</option>
+                                    <option>Marshall Islands</option>
+                                    <option>Martinique</option>
+                                    <option>Mauritania</option>
+                                    <option>Mauritius</option>
+                                    <option>Mayotte</option>
+                                    <option>Mexico</option>
+                                    <option>Micronesia, Federated States of</option>
+                                    <option>Moldova, Republic of</option>
+                                    <option>Monaco</option>
+                                    <option>Mongolia</option>
+                                    <option>Montenegro</option>
+                                    <option>Montserrat</option>
+                                    <option>Morocco</option>
+                                    <option>Mozambique</option>
+                                    <option>Myanmar</option>
+                                    <option>Namibia</option>
+                                    <option>Nauru</option>
+                                    <option>Nepal</option>
+                                    <option>Netherlands</option>
+                                    <option>New Caledonia</option>
+                                    <option>New Zealand</option>
+                                    <option>Nicaragua</option>
+                                    <option>Niger</option>
+                                    <option>Nigeria</option>
+                                    <option>Niue</option>
+                                    <option>Norfolk Island</option>
+                                    <option>Northern Mariana Islands</option>
+                                    <option>Norway</option>
+                                    <option>Oman</option>
+                                    <option>Pakistan</option>
+                                    <option>Palau</option>
+                                    <option>Palestine, State of</option>
+                                    <option>Panama</option>
+                                    <option>Papua New Guinea</option>
+                                    <option>Paraguay</option>
+                                    <option>Peru</option>
+                                    <option>Philippines</option>
+                                    <option>Pitcairn</option>
+                                    <option>Poland</option>
+                                    <option>Portugal</option>
+                                    <option>Puerto Rico</option>
+                                    <option>Qatar</option>
+                                    <option>Réunion</option>
+                                    <option>Romania</option>
+                                    <option>Russian Federation</option>
+                                    <option>Rwanda</option>
+                                    <option>Saint Barthélemy</option>
+                                    <option>Saint Helena, Ascension and Tristan da Cunha</option>
+                                    <option>Saint Kitts and Nevis</option>
+                                    <option>Saint Lucia</option>
+                                    <option>Saint Martin (French part)</option>
+                                    <option>Saint Pierre and Miquelon</option>
+                                    <option>Saint Vincent and the Grenadines</option>
+                                    <option>Samoa</option>
+                                    <option>San Marino</option>
+                                    <option>Sao Tome and Principe</option>
+                                    <option>Saudi Arabia</option>
+                                    <option>Senegal</option>
+                                    <option>Serbia</option>
+                                    <option>Seychelles</option>
+                                    <option>Sierra Leone</option>
+                                    <option>Singapore</option>
+                                    <option>Sint Maarten (Dutch part)</option>
+                                    <option>Slovakia</option>
+                                    <option>Slovenia</option>
+                                    <option>Solomon Islands</option>
+                                    <option>Somalia</option>
+                                    <option>South Africa</option>
+                                    <option>South Georgia and the South Sandwich Islands</option>
+                                    <option>South Sudan</option>
+                                    <option>Spain</option>
+                                    <option>Sri Lanka</option>
+                                    <option>Sudan</option>
+                                    <option>Suriname</option>
+                                    <option>Svalbard and Jan Mayen</option>
+                                    <option>Swaziland</option>
+                                    <option>Sweden</option>
+                                    <option>Switzerland</option>
+                                    <option>Syrian Arab Republic</option>
+                                    <option>Taiwan, Province of China</option>
+                                    <option>Tajikistan</option>
+                                    <option>Tanzania, United Republic of</option>
+                                    <option>Thailand</option>
+                                    <option>Timor-Leste</option>
+                                    <option>Togo</option>
+                                    <option>Tokelau</option>
+                                    <option>Tonga</option>
+                                    <option>Trinidad and Tobago</option>
+                                    <option>Tunisia</option>
+                                    <option>Turkey</option>
+                                    <option>Turkmenistan</option>
+                                    <option>Turks and Caicos Islands</option>
+                                    <option>Tuvalu</option>
+                                    <option>Uganda</option>
+                                    <option>Ukraine</option>
+                                    <option>United Arab Emirates</option>
+                                    <option>United Kingdom</option>
+                                    <option>United States</option>
+                                    <option>United States Minor Outlying Islands</option>
+                                    <option>Uruguay</option>
+                                    <option>Uzbekistan</option>
+                                    <option>Vanuatu</option>
+                                    <option>Venezuela, Bolivarian Republic of</option>
+                                    <option>Viet Nam</option>
+                                    <option>Virgin Islands, British</option>
+                                    <option>Virgin Islands, U.S.</option>
+                                    <option>Wallis and Futuna</option>
+                                    <option>Western Sahara</option>
+                                    <option>Yemen</option>
+                                    <option>Zambia</option>
+                                    <option>Zimbabwe</option>
+                                    <option></option>                            </select>
+                            </div>
+                        </div>
+                        <h4 class="display-10 font-weight-normal">Residential Status</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="residentialStatusSelect">Select your Residential Status</label>
+                                <select id="residentialStatusSelect" class="form-control">
+                              <option>Resident Individual</option>
+                              <option>Non Resident Indian</option>
+                              <option>Foreign National</option>
+                              <option>Person of Indian Origin</option>
+                            </select>
+                            </div>
+                        </div>
+                        <h4 class="display-10 font-weight-normal">Occupation Type</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="occupationSelect">Select your Occupation Type</label>
+                                <select id="occupationSelect" class="form-control">
+                              <option>Private Sector Service</option>
+                              <option>Public Sector Service</option>
+                              <option>Government Sector Service</option>
+                              <option>Professional</option>
+                              <option>Self Employed</option>
+                              <option>Retired</option>
+                              <option>Housewife</option>
+                              <option>Student</option>
+                              <option>Business</option>
+                              <option>Not Categorised</option>
+                            </select>
+                            </div>
+                        </div>
+                        <h2 class="display-8 font-weight-normal">2.Proof of Identity</h2>
+                        <h2 class="display-8 font-weight-normal">3.Proof of Address</h2>
+                        <h2 class="display-8 font-weight-normal">4.Contact Details</h2>
+                        <h2 class="display-8 font-weight-normal">5.FATCA/CRS Information</h2>
+                        <h2 class="display-8 font-weight-normal">6.Details of Related Person</h2>
+                        <h2 class="display-8 font-weight-normal">7.Remarks (if any)</h2>
+                        <h2 class="display-8 font-weight-normal">8.Applicant Declaration</h2>
+                        <div class="col-xs-6 col-xs-offset-3 text-center">
+                            <input class="btn btn-primary" id="proceed1" type="submit" value="Proceed">
+                        </div>
+                    </form>
                 </div>
-                <div id="user-signed-out" class="hiddenfire">
 
-                    <div id="tamilmain" class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-white">
-                        <div class="col-md-6 p-lg-6 mx-auto my-6">
-                            <div class="text-center">
-                                <img src="img/people.png" class="rounded" alt="people">
-                            </div>
-                            <h1 class="display-4 font-weight-normal">KYC</h1>
-                            <p class="lead font-weight-normal">Sign in to submit your KYC form</p>
-                            <div id="firebaseui-spa">
-                                <!-- <h5>Single Page Application mode:</h5> -->
-                                <div id="firebaseui-container"></div>
-                            </div>
+
+            </div>
+            <div></div>
+            <div id="user-signed-out" class="hiddenfire">
+
+                <div id="tamilmain" class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-white">
+                    <div class="col-md-6 p-lg-6 mx-auto my-6">
+                        <div class="text-center">
+                            <img src="img/people.png" class="rounded" alt="people">
+                        </div>
+                        <h1 class="display-4 font-weight-normal">KYC</h1>
+                        <p class="lead font-weight-normal">Sign in to submit your KYC form</p>
+                        <div id="firebaseui-spa">
+                            <!-- <h5>Single Page Application mode:</h5> -->
+                            <div id="firebaseui-container"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 
@@ -149,16 +553,109 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="app.js"></script>
     <script>
-        $(document).ready(function() {
-            $("#myModal").on("hidden.bs.modal", function() {
-                $("#iframeYoutube").attr("src", "#");
-            })
-        })
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+    <script>
+        $(document).on("click", "#proceed1", function() {
+            $("#idToken").val(idToken_);
+            var form = document.getElementById('kyc-form');
 
-        function changeVideo(vId) {
-            var iframe = document.getElementById("iframeYoutube");
-            iframe.src = vId;
-            $("#myModal").modal("show");
+            $.getJSON("/proceed", {
+                idToken: idToken_,
+                pan: $('#inputPan').val(),
+                panLocation: $('#panLocation').val()
+            }, function(data, status) {
+                if (data.success == "true") {
+                    //whatever
+                } else {
+                    //whatever
+                }
+            });
+        });
+
+        //function to save file
+        function uploadPan() {
+
+            // Created a Storage Reference with root dir
+            var storageRef = firebase.storage().ref();
+            // Get the file from DOM
+            var file = document.getElementById("panFile1").files[0];
+            console.log(file);
+
+            // Create the file metadata
+            var metadata = {
+                contentType: 'image/jpeg'
+            };
+
+            // Upload file and metadata to the object 'images/mountains.jpg'
+            var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function(snapshot) {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                function(error) {
+
+                    // A full list of error codes is available at
+                    // https://firebase.google.com/docs/storage/web/handle-errors
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            // User doesn't have permission to access the object
+                            break;
+
+                        case 'storage/canceled':
+                            // User canceled the upload
+                            break;
+
+                        case 'storage/unknown':
+                            // Unknown error occurred, inspect error.serverResponse
+                            break;
+                    }
+                },
+                function() {
+                    // Upload completed successfully, now we can get the download URL
+                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                        $('#panLocation').val(downloadURL);
+                        console.log('File available at', downloadURL);
+                    });
+                });
+
+            // //dynamically set reference to the file name
+            // var thisRef = storageRef.child(file.name);
+
+            // //put request upload file to firebase storage
+            // thisRef.put(file).then(function(snapshot) {
+            //     alert("File Uploaded")
+            //     console.log('Uploaded a blob or file!' + snapshot.ref.getDownloadURL());
+            // });
         }
     </script>
 </body>

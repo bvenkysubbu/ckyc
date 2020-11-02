@@ -7,6 +7,8 @@
  */
 
 var user_email = 'user@email';
+// Created a Storage Reference with root dir
+// var storageRef = firebase.storage().ref();
 
 function getUiConfig() {
     return {
@@ -130,7 +132,7 @@ var handleSignedInUser = function(user) {
     firebase.auth().currentUser.getIdToken( /* forceRefresh */ true).then(function(idToken) {
         // Send token to your backend via HTTPS
         // ...
-        // idToken_ = idToken
+        idToken_ = idToken
         loadLessons();
 
     }).catch(function(error) {
