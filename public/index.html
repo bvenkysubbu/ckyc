@@ -61,183 +61,186 @@
         <div id="loaded" class="hiddenfire">
             <div id="main">
                 <div id="user-signed-in" class="hiddenfire">
-                    <div id="ckycin" class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-white">
+                    <div id="ckycin" class="position-relative overflow-hidden p-3 m-md-3 text-center bg-white">
                         <h1 class="display-4 font-weight-normal">KYC Form</h1>
-                        <h2 class="display-12 font-weight-normal">You haven't submitted the form before.<br> Please fill and submit the form below.</h2>
+                        <div id="welcomeText">
+                            <h2 class="display-12 font-weight-normal">You haven't submitted the form before.<br> Please fill and submit the form below.</h2>
+                        </div>
                     </div>
-                    <form id="kyc-form" class="needs-validation" novalidate>
-                        <input id="idToken" name="idToken" type="hidden">
-                        <input id="panLocation" name="panLocation" type="hidden">
-                        <input id="yourPhotoLocation" name="yourPhotoLocation" type="hidden">
-                        <input id="yourProofOfIDLocation" name="yourProofOfIDLocation" type="hidden">
-                        <input id="yourProofOfAddressLocation" name="yourProofOfAddressLocation" type="hidden">
-                        <input id="relatedProofOfIDLocation" name="relatedProofOfIDLocation" type="hidden">
-                        <div class="accordion" id="accordionExample">
-                            <div id="headingOne" class="col-md-12">
-                                <h2 class="mb-0">
-                                    <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseOne">1. Identity Details</a>
-                                </h2>
-                            </div>
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <h4 class="display-10 font-weight-normal">PAN</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="inputPan">PAN</label>
-                                        <input type="text" class="form-control" id="inputPan" placeholder="PAN" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                    </div>
-                                    <div class="custom-file form-group col-md-6">
-                                        <label for="exampleFormControlFile1">Duly Attested Copy of your PAN card</label>
-                                        <input type="file" onchange="uploadPan()" class="form-control-file" id="panFile1" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Please choose a file.
-                                        </div>
-                                    </div>
+                    <div id="kyc-not-submitted" class="p-3 p-md-5">
+                        <form id="kyc-form" class="needs-validation" novalidate>
+                            <input id="idToken" name="idToken" type="hidden">
+                            <input id="panLocation" name="panLocation" type="hidden">
+                            <input id="yourPhotoLocation" name="yourPhotoLocation" type="hidden">
+                            <input id="yourProofOfIDLocation" name="yourProofOfIDLocation" type="hidden">
+                            <input id="yourProofOfAddressLocation" name="yourProofOfAddressLocation" type="hidden">
+                            <input id="relatedProofOfIDLocation" name="relatedProofOfIDLocation" type="hidden">
+                            <div class="accordion1" id="accordionExample1">
+                                <div id="headingOne" class="col-md-12">
+                                    <h2 class="mb-0">
+                                        <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseOne">1. Identity Details</a>
+                                    </h2>
                                 </div>
-                                <h4 class="display-10 font-weight-normal">Your Name</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="prefixYourName">Your Name Prefix</label>
-                                        <select id="prefixYourName" class="form-control">
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+                                    <h4 class="display-10 font-weight-normal">PAN</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPan">PAN</label>
+                                            <input type="text" class="form-control" id="inputPan" placeholder="PAN" required>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                        </div>
+                                        <div class="custom-file form-group col-md-6">
+                                            <label for="exampleFormControlFile1">Duly Attested Copy of your PAN card</label>
+                                            <input type="file" onchange="uploadPan()" class="form-control-file" id="panFile1" required>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please choose a file.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="display-10 font-weight-normal">Your Name</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="prefixYourName">Your Name Prefix</label>
+                                            <select id="prefixYourName" class="form-control" required>
                               <option selected>Ms</option>
                               <option>Mr</option>
                               <option>Mrs</option>
                             </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="yourFirstName">Your First Name</label>
-                                        <input type="text" class="form-control" id="yourFirstName" placeholder="Your First Name">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="yourMiddleName">Your Middle Name</label>
-                                        <input type="text" class="form-control" id="yourMiddleName" placeholder="Your Middle Name">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="yourLastName">Your Last Name</label>
-                                        <input type="text" class="form-control" id="yourLastName" placeholder="Your Last Name">
-                                    </div>
-                                </div>
-                                <h4 class="display-10 font-weight-normal">Maiden Name</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="prefixMaidenName">Maiden Name Prefix</label>
-                                        <select id="prefixMaidenName" class="form-control">
-                              <option selected>Ms</option>
-                              <option>Mr</option>
-                              <option>Mrs</option>
-                            </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="maidenFirstName">Maiden First Name</label>
-                                        <input type="text" class="form-control" id="maidenFirstName" placeholder="Maiden First Name">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="maidenMiddleName">Maiden Middle Name</label>
-                                        <input type="text" class="form-control" id="maidenMiddleName" placeholder="Maiden Middle Name">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="maidenLastName">Maiden Last Name</label>
-                                        <input type="text" class="form-control" id="maidenLastName" placeholder="Maiden Last Name">
-                                    </div>
-                                </div>
-                                <h4 class="display-10 font-weight-normal">Father/Spouse Name</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="prefixFatherOrSpouseName">Father/Spouse Name Prefix</label>
-                                        <select id="prefixFatherOrSpouseName" class="form-control">
-                              <option selected>Ms</option>
-                              <option>Mr</option>
-                              <option>Mrs</option>
-                            </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="fatherOrSpouseFirstName">Father/Spouse First Name</label>
-                                        <input type="text" class="form-control" id="fatherOrSpouseFirstName" placeholder="Father/Spouse First Name">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="fatherOrSpouseMiddleName">Father/Spouse Middle Name</label>
-                                        <input type="text" class="form-control" id="fatherOrSpouseMiddleName" placeholder="Father/Spouse Middle Name">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="fatherOrSpouseLastName">Father/Spouse Last Name</label>
-                                        <input type="text" class="form-control" id="fatherOrSpouseLastName" placeholder="Father/Spouse Last Name">
-                                    </div>
-                                </div>
-                                <h4 class="display-10 font-weight-normal">Mother Name</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="prefixMotherName">Mother Name Prefix</label>
-                                        <select id="prefixMotherName" class="form-control">
-                              <option selected>Ms</option>
-                              <option>Mr</option>
-                              <option>Mrs</option>
-                            </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="maidenFirstName">Mother First Name</label>
-                                        <input type="text" class="form-control" id="maidenFirstName" placeholder="Mother First Name">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="maidenMiddleName">Mother Middle Name</label>
-                                        <input type="text" class="form-control" id="maidenMiddleName" placeholder="Mother Middle Name">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="maidenLastName">Mother Last Name</label>
-                                        <input type="text" class="form-control" id="maidenLastName" placeholder="Mother Last Name">
-                                    </div>
-                                </div>
-                                <h4 class="display-10 font-weight-normal">Your Photo</h4>
-                                <div class="form-row">
-                                    <div class="custom-file form-group col-md-6">
-                                        <input type="file" onchange="uploadYourPhoto()" class="form-control-file" id="yourPhotoFile1" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
                                         </div>
-                                        <div class="invalid-feedback">
-                                            Please choose a file.
+                                        <div class="form-group col-md-3">
+                                            <label for="yourFirstName">Your First Name</label>
+                                            <input type="text" class="form-control" id="yourFirstName" placeholder="Your First Name" required>
                                         </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="yourMiddleName">Your Middle Name</label>
+                                            <input type="text" class="form-control" id="yourMiddleName" placeholder="Your Middle Name">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="yourLastName">Your Last Name</label>
+                                            <input type="text" class="form-control" id="yourLastName" placeholder="Your Last Name" required>
+                                        </div>
+                                    </div>
+                                    <h4 class="display-10 font-weight-normal">Maiden Name</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="prefixMaidenName">Maiden Name Prefix</label>
+                                            <select id="prefixMaidenName" class="form-control">
+                              <option selected>Ms</option>
+                              <option>Mr</option>
+                              <option>Mrs</option>
+                            </select>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="maidenFirstName">Maiden First Name</label>
+                                            <input type="text" class="form-control" id="maidenFirstName" placeholder="Maiden First Name">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="maidenMiddleName">Maiden Middle Name</label>
+                                            <input type="text" class="form-control" id="maidenMiddleName" placeholder="Maiden Middle Name">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="maidenLastName">Maiden Last Name</label>
+                                            <input type="text" class="form-control" id="maidenLastName" placeholder="Maiden Last Name">
+                                        </div>
+                                    </div>
+                                    <h4 class="display-10 font-weight-normal">Father/Spouse Name</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="prefixFatherOrSpouseName">Father/Spouse Name Prefix</label>
+                                            <select id="prefixFatherOrSpouseName" class="form-control" required>
+                              <option selected>Ms</option>
+                              <option>Mr</option>
+                              <option>Mrs</option>
+                            </select>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="fatherOrSpouseFirstName">Father/Spouse First Name</label>
+                                            <input type="text" class="form-control" id="fatherOrSpouseFirstName" placeholder="Father/Spouse First Name" required>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="fatherOrSpouseMiddleName">Father/Spouse Middle Name</label>
+                                            <input type="text" class="form-control" id="fatherOrSpouseMiddleName" placeholder="Father/Spouse Middle Name">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="fatherOrSpouseLastName">Father/Spouse Last Name</label>
+                                            <input type="text" class="form-control" id="fatherOrSpouseLastName" placeholder="Father/Spouse Last Name" required>
+                                        </div>
+                                    </div>
+                                    <h4 class="display-10 font-weight-normal">Mother Name</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="prefixMotherName">Mother Name Prefix</label>
+                                            <select id="prefixMotherName" class="form-control" required>
+                              <option selected>Ms</option>
+                              <option>Mr</option>
+                              <option>Mrs</option>
+                            </select>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="maidenFirstName">Mother First Name</label>
+                                            <input type="text" class="form-control" id="maidenFirstName" placeholder="Mother First Name" required>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="maidenMiddleName">Mother Middle Name</label>
+                                            <input type="text" class="form-control" id="maidenMiddleName" placeholder="Mother Middle Name">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="maidenLastName">Mother Last Name</label>
+                                            <input type="text" class="form-control" id="maidenLastName" placeholder="Mother Last Name" required>
+                                        </div>
+                                    </div>
+                                    <h4 class="display-10 font-weight-normal">Your Photo</h4>
+                                    <div class="form-row">
+                                        <div class="custom-file form-group col-md-6">
+                                            <input type="file" onchange="uploadYourPhoto()" class="form-control-file" id="yourPhotoFile1" required>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please choose a file.
+                                            </div>
+                                        </div>
+
                                     </div>
 
-                                </div>
-
-                                <h4 class="display-10 font-weight-normal">Your Date of Birth</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <input type="date" class="form-control" id="birthday" name="birthday">
+                                    <h4 class="display-10 font-weight-normal">Your Date of Birth</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <input type="date" class="form-control" id="yourBirthday" name="birthday" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <h4 class="display-10 font-weight-normal">Gender</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="genderSelect">Select your gender</label>
-                                        <select id="genderSelect" class="form-control">
+                                    <h4 class="display-10 font-weight-normal">Gender</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="genderSelect">Select your gender</label>
+                                            <select id="genderSelect" class="form-control" required>
                               <option>Male</option>
                               <option>Female</option>
                               <option>Transgender</option>
                             </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <h4 class="display-10 font-weight-normal">Marital Status</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="maritalStatusSelect">Select your Marital Status</label>
-                                        <select id="maritalStatusSelect" class="form-control">
+                                    <h4 class="display-10 font-weight-normal">Marital Status</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="maritalStatusSelect">Select your Marital Status</label>
+                                            <select id="maritalStatusSelect" class="form-control" required>
                               <option>Married</option>
                               <option>Unmarried</option>
                               <option>Others</option>
                             </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <h4 class="display-10 font-weight-normal">Citizenship</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="citizenshipSelect">Select your Citizenship</label>
-                                        <select id="citizenshipSelect" class="form-control">
+                                    <h4 class="display-10 font-weight-normal">Citizenship</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="citizenshipSelect">Select your Citizenship</label>
+                                            <select id="citizenshipSelect" class="form-control" required>
                                     <option>Afghanistan</option>
                                     <option>Åland Islands</option>
                                     <option>Albania</option>
@@ -488,25 +491,25 @@
                                     <option>Zambia</option>
                                     <option>Zimbabwe</option>
                                     <option></option>                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <h4 class="display-10 font-weight-normal">Residential Status</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="residentialStatusSelect">Select your Residential Status</label>
-                                        <select id="residentialStatusSelect" class="form-control">
+                                    <h4 class="display-10 font-weight-normal">Residential Status</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="residentialStatusSelect">Select your Residential Status</label>
+                                            <select id="residentialStatusSelect" class="form-control" required>
                               <option>Resident Individual</option>
                               <option>Non Resident Indian</option>
                               <option>Foreign National</option>
                               <option>Person of Indian Origin</option>
                             </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <h4 class="display-10 font-weight-normal">Occupation Type</h4>
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="occupationSelect">Select your Occupation Type</label>
-                                        <select id="occupationSelect" class="form-control">
+                                    <h4 class="display-10 font-weight-normal">Occupation Type</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="occupationSelect">Select your Occupation Type</label>
+                                            <select id="occupationSelect" class="form-control" required>
                               <option>Private Sector Service</option>
                               <option>Public Sector Service</option>
                               <option>Government Sector Service</option>
@@ -518,126 +521,126 @@
                               <option>Business</option>
                               <option>Not Categorised</option>
                             </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div id="headingTwo" class="col-md-12">
-                            <h2 class="mb-0">
-                                <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseTwo">2. Proof of Identity</a>
-                            </h2>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            <div id="headingTwo" class="col-md-12">
+                                <h2 class="mb-0">
+                                    <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseTwo">2. Proof of Identity</a>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
 
-                            <h4 class="display-10 font-weight-normal">Document Select</h4>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="residentialStatusSelect">Select the document for Proof of Identity</label>
-                                    <select id="residentialStatusSelect" class="form-control">
+                                <h4 class="display-10 font-weight-normal">Document Select</h4>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="poiDocumentSelect">Select the document for Proof of Identity</label>
+                                        <select id="poiDocumentSelect" class="form-control" required>
                               <option>Passport</option>
                               <option>Voter ID Card</option>
                               <option>Driving License</option>
                               <option>NREGA Job Card</option>
                               <option>Other</option>
                             </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputIdentityNo">ID number</label>
+                                        <input type="text" class="form-control" id="inputIdentityNo" placeholder="ID Number" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="poiExpiryDate">Expiry Date</label>
+                                        <input type="date" class="form-control" id="poiExpiryDate" name="poiExpiryDate" required>
+                                    </div>
+                                    <div class="custom-file form-group col-md-4">
+                                        <label for="poiFile">Certified Copy of your ID</label>
+                                        <input type="file" onchange="uploadPOI()" class="form-control-file" id="poiFile" required>
+                                    </div>
+
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputIdentityNo">ID number</label>
-                                    <input type="text" class="form-control" id="inputIdentityNo" placeholder="ID Number" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="poiExpiryDate">Expiry Date</label>
-                                    <input type="date" class="form-control" id="poiExpiryDate" name="poiExpiryDate">
-                                </div>
-                                <div class="custom-file form-group col-md-4">
-                                    <label for="poiFile">Certified Copy of your ID</label>
-                                    <input type="file" onchange="uploadPOI()" class="form-control-file" id="poiFile">
-                                </div>
-
+                            <div id="headingThree" class="col-md-12">
+                                <h2 class="mb-0">
+                                    <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseThree">3. Proof of Address</a>
+                                </h2>
                             </div>
-                        </div>
-                        <div id="headingThree" class="col-md-12">
-                            <h2 class="mb-0">
-                                <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseThree">3. Proof of Address</a>
-                            </h2>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
 
-                            <h4 class="display-10 font-weight-normal">Document Select</h4>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="addressProofSelect">Select the document for Proof of Address</label>
-                                    <select id="addressProofSelect" class="form-control">
+                                <h4 class="display-10 font-weight-normal">Document Select</h4>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="addressProofSelect">Select the document for Proof of Address</label>
+                                        <select id="addressProofSelect" class="form-control" required>
                               <option>Passport</option>
                               <option>Voter ID Card</option>
                               <option>Driving License</option>
                               <option>NREGA Job Card</option>
                               <option>Other</option>
                             </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputAddressID">Document number</label>
-                                    <input type="text" class="form-control" id="inputAddressID" placeholder="ID Number" required>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAddressID">Document number</label>
+                                        <input type="text" class="form-control" id="inputAddressID" placeholder="ID Number" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="poaExpiryDate">Expiry Date</label>
+                                        <input type="date" class="form-control" id="poaExpiryDate" name="poaExpiryDate" required>
+                                    </div>
+                                    <div class="custom-file form-group col-md-4">
+                                        <label for="poaFile">Certified Copy of your Document</label>
+                                        <input type="file" onchange="uploadPOA()" class="form-control-file" id="poaFile" required>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="poaExpiryDate">Expiry Date</label>
-                                    <input type="date" class="form-control" id="poaExpiryDate" name="poaExpiryDate">
-                                </div>
-                                <div class="custom-file form-group col-md-4">
-                                    <label for="poaFile">Certified Copy of your Document</label>
-                                    <input type="file" onchange="uploadPOA()" class="form-control-file" id="poaFile">
-                                </div>
-                            </div>
-                            <h4 class="display-10 font-weight-normal">Current/Permanent/Overseas Address Details</h4>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="addressTypeSelect">Select the Address Type</label>
-                                    <select id="addressTypeSelect" class="form-control">
+                                <h4 class="display-10 font-weight-normal">Current/Permanent/Overseas Address Details</h4>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="addressTypeSelect">Select the Address Type</label>
+                                        <select id="addressTypeSelect" class="form-control" required>
                               <option>Residential / Business</option>
                               <option>Residential</option>
                               <option>Business</option>
                               <option>Registered Office</option>
                               <option>Unspecified</option>
                             </select>
-                                </div>
+                                    </div>
 
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="inputAddressLine1">Address Line 1</label>
-                                    <input type="text" class="form-control" id="inputAddressLine1" placeholder="Address Line 1" required>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="inputAddressLine2">Address Line 2</label>
-                                    <input type="text" class="form-control" id="inputAddressLine2" placeholder="Address Line 2" required>
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for="inputAddressLine1">Address Line 1</label>
+                                        <input type="text" class="form-control" id="inputAddressLine1" placeholder="Address Line 1" required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="inputAddressLine3">Address Line 3</label>
-                                    <input type="text" class="form-control" id="inputAddressLine3" placeholder="Address Line 3" required>
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for="inputAddressLine2">Address Line 2</label>
+                                        <input type="text" class="form-control" id="inputAddressLine2" placeholder="Address Line 2">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputAddressCity">City/Town/Village</label>
-                                    <input type="text" class="form-control" id="inputAddressCity" placeholder="City/Town/Village" required>
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for="inputAddressLine3">Address Line 3</label>
+                                        <input type="text" class="form-control" id="inputAddressLine3" placeholder="Address Line 3">
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="inputAddressDistrict">District</label>
-                                    <input type="text" class="form-control" id="inputAddressDistrict" placeholder="District" required>
-                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAddressCity">City/Town/Village</label>
+                                        <input type="text" class="form-control" id="inputAddressCity" placeholder="City/Town/Village" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAddressDistrict">District</label>
+                                        <input type="text" class="form-control" id="inputAddressDistrict" placeholder="District" required>
+                                    </div>
 
-                                <div class="form-group col-md-4">
-                                    <label for="addressStateSelect">State/UT</label>
-                                    <select id="addressStateSelect" class="form-control">
+                                    <div class="form-group col-md-4">
+                                        <label for="addressStateSelect">State/UT</label>
+                                        <select id="addressStateSelect" class="form-control">
                                     <option>Andaman and Nicobar Islands</option>
                                     <option>Andhra Pradesh</option>
                                     <option>Arunachal Pradesh</option>
@@ -674,13 +677,14 @@
                                     <option>Uttar Pradesh</option>
                                     <option>Uttarakhand</option>
                                     <option>West Bengal</option>
+                                    <option>Other</option>
                                   </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="currentAddressCountrySelect">Country</label>
-                                    <select id="currentAddressCountrySelect" class="form-control">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="currentAddressCountrySelect">Country</label>
+                                        <select id="currentAddressCountrySelect" class="form-control">
                                         <option>Afghanistan</option>
                                         <option>Åland Islands</option>
                                         <option>Albania</option>
@@ -931,46 +935,46 @@
                                         <option>Zambia</option>
                                         <option>Zimbabwe</option>
                                         <option></option>                            </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <h4 class="display-10 font-weight-normal">Correspondence/Local Address Details</h4>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <h4 class="display-10 font-weight-normal">Correspondence/Local Address Details</h4>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="currentIsCorrespondenceCheck">
+                                    <label class="form-check-label" for="defaultCheck1">
                               Same as Current/Permanent/Overseas Address
                             </label>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="inputAddressLine1">Address Line 1</label>
-                                    <input type="text" class="form-control" id="inputAddressLine1" placeholder="Address Line 1" required>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="inputAddressLine2">Address Line 2</label>
-                                    <input type="text" class="form-control" id="inputAddressLine2" placeholder="Address Line 2" required>
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for="inputAddressLine1">Address Line 1</label>
+                                        <input type="text" class="form-control" id="inputLocalAddressLine1" placeholder="Address Line 1" required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="inputAddressLine3">Address Line 3</label>
-                                    <input type="text" class="form-control" id="inputAddressLine3" placeholder="Address Line 3" required>
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for="inputAddressLine2">Address Line 2</label>
+                                        <input type="text" class="form-control" id="inputLocalAddressLine2" placeholder="Address Line 2">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputAddressCity">City/Town/Village</label>
-                                    <input type="text" class="form-control" id="inputAddressCity" placeholder="City/Town/Village" required>
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for="inputAddressLine3">Address Line 3</label>
+                                        <input type="text" class="form-control" id="inputLocalAddressLine3" placeholder="Address Line 3">
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="inputAddressDistrict">District</label>
-                                    <input type="text" class="form-control" id="inputAddressDistrict" placeholder="District" required>
-                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAddressCity">City/Town/Village</label>
+                                        <input type="text" class="form-control" id="inputLocalAddressCity" placeholder="City/Town/Village" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAddressDistrict">District</label>
+                                        <input type="text" class="form-control" id="inputLocalAddressDistrict" placeholder="District" required>
+                                    </div>
 
-                                <div class="form-group col-md-4">
-                                    <label for="addressStateSelect">State/UT</label>
-                                    <select id="addressStateSelect" class="form-control">
+                                    <div class="form-group col-md-4">
+                                        <label for="localAddressStateSelect">State/UT</label>
+                                        <select id="localAddressStateSelect" class="form-control">
                                     <option>Andaman and Nicobar Islands</option>
                                     <option>Andhra Pradesh</option>
                                     <option>Arunachal Pradesh</option>
@@ -1008,12 +1012,12 @@
                                     <option>Uttarakhand</option>
                                     <option>West Bengal</option>
                                   </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="currentAddressCountrySelect">Country</label>
-                                    <select id="currentAddressCountrySelect" class="form-control">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="localAddressCountrySelect">Country</label>
+                                        <select id="localAddressCountrySelect" class="form-control">
                                         <option>Afghanistan</option>
                                         <option>Åland Islands</option>
                                         <option>Albania</option>
@@ -1264,71 +1268,72 @@
                                         <option>Zambia</option>
                                         <option>Zimbabwe</option>
                                         <option></option>                            </select>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div id="headingFour" class="col-md-12">
-                            <h2 class="mb-0">
-                                <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseFour">4. Contact Details</a>
-                            </h2>
-                        </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputContactEmail">Email ID</label>
-                                    <input type="email" class="form-control" id="inputContactEmail" placeholder="Email ID">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-3 mb-3">
-                                    <label for="inputContactMobile">Mobile</label>
-                                    <input type="text" class="form-control" id="inputContactMobile" placeholder="Mobile" required>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid Mobile.
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-3 mb-3">
-                                    <label for="inputContactTelephoneOffice">Telephone Office</label>
-                                    <input type="text" class="form-control" id="inputContactTelephoneOffice" placeholder="Telephone Office" required>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid Telephone number.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-3 mb-3">
-                                    <label for="inputContactTelephoneResidence">Telephone Residence</label>
-                                    <input type="text" class="form-control" id="inputContactTelephoneRedidence" placeholder="Telephone Residence" required>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid Telephone number.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="headingFive" class="col-md-12">
-                            <h2 class="mb-0">
-                                <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseFive">5. FATCA/CRS Information</a>
-                            </h2>
-                        </div>
-                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
 
-                            <div class="form-check">
+                            </div>
+
+                            <div id="headingFour" class="col-md-12">
+                                <h2 class="mb-0">
+                                    <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseFour">4. Contact Details</a>
+                                </h2>
+                            </div>
+                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour">
+
                                 <div class="form-row">
-                                    <div class="col-md-8 mb-8">
-                                        <input class="form-check-input" type="checkbox" value="" id="fatcaCheck">
-                                        <label class="form-check-label" for="fatcaCheck">Applicable - Residence for Tax Purposes in Jurisdiction(s) Outside India</label>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputContactEmail">Email ID</label>
+                                        <input type="email" class="form-control" id="inputContactEmail" placeholder="Email ID" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="inputContactMobile">Mobile</label>
+                                        <input type="text" class="form-control" id="inputContactMobile" placeholder="Mobile" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid Mobile.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="inputContactTelephoneOffice">Telephone Office</label>
+                                        <input type="text" class="form-control" id="inputContactTelephoneOffice" placeholder="Telephone Office">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid Telephone number.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="inputContactTelephoneResidence">Telephone Residence</label>
+                                        <input type="text" class="form-control" id="inputContactTelephoneResidence" placeholder="Telephone Residence">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid Telephone number.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="fatcaCountrySelect">Country of Jurisdiction of Residence</label>
-                                    <select id="fatcaCountrySelect" class="form-control">
+                            <div id="headingFive" class="col-md-12">
+                                <h2 class="mb-0">
+                                    <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseFive">5. FATCA/CRS Information</a>
+                                </h2>
+                            </div>
+                            <div id="collapseFive" class="collapse" aria-labelledby="headingFive">
+
+                                <div class="form-check">
+                                    <div class="form-row">
+                                        <div class="col-md-8 mb-8">
+                                            <input class="form-check-input" type="checkbox" value="" id="fatcaCheck">
+                                            <label class="form-check-label" for="fatcaCheck">Applicable - Residence for Tax Purposes in Jurisdiction(s) Outside India</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="fatca-specific" class="d-none">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="fatcaCountrySelect">Country of Jurisdiction of Residence</label>
+                                            <select id="fatcaCountrySelect" class="form-control">
                                 <option>Afghanistan</option>
                                 <option>Åland Islands</option>
                                 <option>Albania</option>
@@ -1579,57 +1584,57 @@
                                 <option>Zambia</option>
                                 <option>Zimbabwe</option>
                                 <option></option>                            </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="inputTaxIdNo">Tax Identification Number or equivalent (If issued by jurisdiction)</label>
-                                    <input type="text" class="form-control" id="inputTaxIdNo" placeholder="Tax ID Number">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputFatcaBirthCity">Place / City of Birth</label>
-                                    <input type="text" class="form-control" id="inputFatcaBirthCity" placeholder="Place/City">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputFatcaBirthCountry">Country of Birth</label>
-                                    <input type="text" class="form-control" id="inputFatcaBirthCountry" placeholder="Country">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="inputAddressLine1">Address Line 1</label>
-                                    <input type="text" class="form-control" id="inputAddressLine1" placeholder="Address Line 1" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="inputAddressLine2">Address Line 2</label>
-                                    <input type="text" class="form-control" id="inputAddressLine2" placeholder="Address Line 2" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="inputAddressLine3">Address Line 3</label>
-                                    <input type="text" class="form-control" id="inputAddressLine3" placeholder="Address Line 3" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputAddressCity">City/Town/Village</label>
-                                    <input type="text" class="form-control" id="inputAddressCity" placeholder="City/Town/Village" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="inputAddressDistrict">District</label>
-                                    <input type="text" class="form-control" id="inputAddressDistrict" placeholder="District" required>
-                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="inputTaxIdNo">Tax Identification Number or equivalent (If issued by jurisdiction)</label>
+                                            <input type="text" class="form-control" id="inputTaxIdNo" placeholder="Tax ID Number">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputFatcaBirthCity">Place / City of Birth</label>
+                                            <input type="text" class="form-control" id="inputFatcaBirthCity" placeholder="Place/City">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputFatcaBirthCountry">Country of Birth</label>
+                                            <input type="text" class="form-control" id="inputFatcaBirthCountry" placeholder="Country">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="inputFatcaAddressLine1">Address Line 1</label>
+                                            <input type="text" class="form-control" id="inputFatcaAddressLine1" placeholder="Address Line 1">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="inputFatcaAddressLine2">Address Line 2</label>
+                                            <input type="text" class="form-control" id="inputFatcaAddressLine2" placeholder="Address Line 2">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="inputFatcaAddressLine3">Address Line 3</label>
+                                            <input type="text" class="form-control" id="inputFatcaAddressLine3" placeholder="Address Line 3">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="inputFatcaAddressCity">City/Town/Village</label>
+                                            <input type="text" class="form-control" id="inputFatcaAddressCity" placeholder="City/Town/Village">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="inputFatcaAddressDistrict">District</label>
+                                            <input type="text" class="form-control" id="inputFatcaAddressDistrict" placeholder="District">
+                                        </div>
 
-                                <div class="form-group col-md-4">
-                                    <label for="addressStateSelect">State/UT</label>
-                                    <select id="addressStateSelect" class="form-control">
+                                        <div class="form-group col-md-4">
+                                            <label for="fatcaAddressStateSelect">State/UT</label>
+                                            <select id="addressStateSelect" class="form-control">
                             <option>Andaman and Nicobar Islands</option>
                             <option>Andhra Pradesh</option>
                             <option>Arunachal Pradesh</option>
@@ -1667,12 +1672,12 @@
                             <option>Uttarakhand</option>
                             <option>West Bengal</option>
                           </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="currentAddressCountrySelect">Country</label>
-                                    <select id="currentAddressCountrySelect" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="fatcaAddressCountrySelect">Country</label>
+                                            <select id="fatcaAddressCountrySelect" class="form-control">
                                 <option>Afghanistan</option>
                                 <option>Åland Islands</option>
                                 <option>Albania</option>
@@ -1923,125 +1928,127 @@
                                 <option>Zambia</option>
                                 <option>Zimbabwe</option>
                                 <option></option>                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="headingSix" class="col-md-12">
-                            <h2 class="mb-0">
-                                <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseSix">6. Details of Related Person (Optional)</a>
-                            </h2>
-                        </div>
-                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="relatedPersonTypeSelect">Related Person Type</label>
-                                    <select id="relatedPersonTypeSelect" class="form-control">
+                            <div id="headingSix" class="col-md-12">
+                                <h2 class="mb-0">
+                                    <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseSix">6. Details of Related Person (Optional)</a>
+                                </h2>
+                            </div>
+                            <div id="collapseSix" class="collapse" aria-labelledby="headingSix">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="relatedPersonTypeSelect">Related Person Type</label>
+                                        <select id="relatedPersonTypeSelect" class="form-control">
                       <option>Guardian of Minor</option>
                       <option>Assignee</option>
                       <option>Authorized Representative</option>
                     </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="prefixRelatedPersonName">Related Person Name Prefix</label>
-                                    <select id="prefixRelatedPersonName" class="form-control">
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="prefixRelatedPersonName">Related Person Name Prefix</label>
+                                        <select id="prefixRelatedPersonName" class="form-control">
                       <option selected>Ms</option>
                       <option>Mr</option>
                       <option>Mrs</option>
                     </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="relatedPersonFirstName">Related Person First Name</label>
+                                        <input type="text" class="form-control" id="relatedPersonFirstName" placeholder="First Name">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="relatedPersonMiddleName">Related Person Middle Name</label>
+                                        <input type="text" class="form-control" id="relatedPersonMiddleName" placeholder="Middle Name">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="relatedPersonLastName">Related Person Last Name</label>
+                                        <input type="text" class="form-control" id="relatedPersonLastName" placeholder="Last Name">
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-3">
-                                    <label for="relatedPersonFirstName">Related Person First Name</label>
-                                    <input type="text" class="form-control" id="relatedPersonFirstName" placeholder="First Name">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="relatedPersonMiddleName">Related Person Middle Name</label>
-                                    <input type="text" class="form-control" id="relatedPersonMiddleName" placeholder="Middle Name">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="relatedPersonLastName">Related Person Last Name</label>
-                                    <input type="text" class="form-control" id="relatedPersonLastName" placeholder="Last Name">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="relatedPersonPOISelect">Select the document for Proof of Identity of Related Person</label>
-                                    <select id="relatedPersonPOISelect" class="form-control">
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for="relatedPersonPOISelect">Select the document for Proof of Identity of Related Person</label>
+                                        <select id="relatedPersonPOISelect" class="form-control">
                       <option>Passport</option>
                       <option>Voter ID Card</option>
                       <option>Driving License</option>
                       <option>NREGA Job Card</option>
                       <option>Other</option>
                     </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputRelatedIdentityNo">ID number</label>
-                                    <input type="text" class="form-control" id="inputRelatedIdentityNo" placeholder="ID Number">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="relatedPOIExpiryDate">Expiry Date</label>
-                                    <input type="date" class="form-control" id="relatedPOIExpiryDate" name="relatedPOIExpiryDate">
-                                </div>
-                                <div class="custom-file form-group col-md-4">
-                                    <label for="relatedPOIFile">Certified Copy of Related Person's ID</label>
-                                    <input type="file" onchange="uploadRelatedPOI()" class="form-control-file" id="relatedPOIFile">
-                                </div>
-
-                            </div>
-                        </div>
-                        <div id="headingSeven" class="col-md-12">
-                            <h2 class="mb-0">
-                                <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseSeven">7. Remarks (if any)</a>
-                            </h2>
-                        </div>
-                        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
-                            <div class="form-group">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div id="headingEight" class="col-md-12">
-                            <h2 class="mb-0">
-                                <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseEight">8. Applicant Declaration</a>
-                            </h2>
-                        </div>
-                        <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
-
-                            <div class="form-check">
                                 <div class="form-row">
-                                    <div class="col-md-12 mb-12">
-                                        <input class="form-check-input" type="checkbox" value="" id="declarationCheck">
-                                        <label class="form-check-label" for="declarationCheck">I hereby declare that the details furnished above are true and correct to the best of my knowledge and belief and I undertake to inform you of any changes therein, immediately. In case any of the above information is found to be false or untrue or misleading or misrepresenting, I am aware that I may be held liable for it. I hereby declare that I am not making this application for the purpose of contravention of any Act, Rules, Regulations or any statute of legislation or any notifications/directions issued by any governmental or statutory authority from time to time.</label>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputRelatedIdentityNo">ID number</label>
+                                        <input type="text" class="form-control" id="inputRelatedIdentityNo" placeholder="ID Number">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="relatedPOIExpiryDate">Expiry Date</label>
+                                        <input type="date" class="form-control" id="relatedPOIExpiryDate" name="relatedPOIExpiryDate">
+                                    </div>
+                                    <div class="custom-file form-group col-md-4">
+                                        <label for="relatedPOIFile">Certified Copy of Related Person's ID</label>
+                                        <input type="file" onchange="uploadRelatedPOI()" class="form-control-file" id="relatedPOIFile">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="headingSeven" class="col-md-12">
+                                <h2 class="mb-0">
+                                    <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseSeven">7. Remarks (if any)</a>
+                                </h2>
+                            </div>
+                            <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven">
+                                <div class="form-group">
+                                    <textarea class="form-control" id="remarksTextarea1" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div id="headingEight" class="col-md-12">
+                                <h2 class="mb-0">
+                                    <a class="display-8 font-weight-normal" data-toggle="collapse" href="#collapseEight">8. Applicant Declaration</a>
+                                </h2>
+                            </div>
+                            <div id="collapseEight" class="collapse" aria-labelledby="headingEight">
+
+                                <div class="form-check">
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-12">
+                                            <input class="form-check-input" type="checkbox" value="" id="declarationCheck" required>
+                                            <label class="form-check-label" for="declarationCheck">I hereby declare that the details furnished above are true and correct to the best of my knowledge and belief and I undertake to inform you of any changes therein, immediately. In case any of the above information is found to be false or untrue or misleading or misrepresenting, I am aware that I may be held liable for it. I hereby declare that I am not making this application for the purpose of contravention of any Act, Rules, Regulations or any statute of legislation or any notifications/directions issued by any governmental or statutory authority from time to time.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-12">
+                                            <input class="form-check-input" type="checkbox" value="" id="consentCheck" required>
+                                            <label class="form-check-label" for="consentCheck">I hereby consent to receiving information from Central KYC Registry through SMS/Email on the above registered number/email address.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="applicationDate">Application Date</label>
+                                        <input type="date" class="form-control" id="applicationDate" name="applicationDate" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="applicationPlace">Application Place</label>
+                                        <input type="text" class="form-control" id="applicationPlace" placeholder="Place" required>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-check">
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-12">
-                                        <input class="form-check-input" type="checkbox" value="" id="consentCheck">
-                                        <label class="form-check-label" for="consentCheck">I hereby consent to receiving information from Central KYC Registry through SMS/Email on the above registered number/email address.</label>
-                                    </div>
-                                </div>
+                            <div class="col-xs-6 col-xs-offset-3 text-center">
+                                <input class="btn btn-lg btn-outline-primary" id="proceed1" type="submit" value="Submit">
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="applicationDate">Application Date</label>
-                                    <input type="date" class="form-control" id="applicationDate" name="applicationDate">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="applicationPlace">Application Place</label>
-                                    <input type="text" class="form-control" id="applicationPlace" placeholder="Place">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-xs-offset-3 text-center">
-                            <input class="btn btn-primary" id="proceed1" type="submit" value="Submit">
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
 
 
@@ -2106,26 +2113,139 @@
         })();
     </script>
     <script>
+        $("#currentIsCorrespondenceCheck").change(function() {
+            if (this.checked) {
+                $('#inputLocalAddressLine1').val($('#inputAddressLine1').val());
+                $('#inputLocalAddressLine2').val($('#inputAddressLine2').val());
+                $('#inputLocalAddressLine3').val($('#inputAddressLine3').val());
+                $('#inputLocalAddressCity').val($('#inputAddressCity').val());
+                $('#inputLocalAddressDistrict').val($('#inputAddressDistrict').val());
+                $('#localAddressStateSelect').val($('#addressStateSelect').val());
+                $('#localAddressCountrySelect').val($('#currentAddressCountrySelect').val());
+            } else {
+                $('#inputLocalAddressLine1').val('');
+                $('#inputLocalAddressLine2').val('');
+                $('#inputLocalAddressLine3').val('');
+                $('#inputLocalAddressCity').val('');
+                $('#inputLocalAddressDistrict').val('');
+                $('#localAddressStateSelect').val('');
+            }
+        });
+        $("#fatcaCheck").change(function() {
+            if (this.checked) {
+                $('#fatca-specific').removeClass('d-none');
+            } else {
+                $('#fatca-specific').addClass('d-none');
+            }
+        });
+
         $(document).on("click", "#proceed1", function() {
-            $("#idToken").val(idToken_);
             var form = document.getElementById('kyc-form');
 
-            $.getJSON("/proceed", {
-                    idToken: idToken_,
-                    pan: $('#inputPan').val(),
-                    panLocation: $('#panLocation').val(),
-                    yourPhotoLocation: $('#yourPhotoLocation').val(),
-                    yourProofOfIDLocation: $('#yourProofOfIDLocation').val(),
-                    yourProofOfAddressLocation: $('#yourProofOfAddressLocation').val(),
-                    relatedProofOfIDLocation: $('#relatedProofOfIDLocation').val()
-                },
-                function(data, status) {
-                    if (data.success == "true") {
-                        //whatever
-                    } else {
-                        //whatever
-                    }
-                });
+            if (form.checkValidity() === false) {
+                $('#collapseOne').collapse("show");
+                $('#collapseTwo').collapse("show");
+                $('#collapseThree').collapse("show");
+                $('#collapseFour').collapse("show");
+                $('#collapseFive').collapse("show");
+                $('#collapseSix').collapse("show");
+                $('#collapseSeven').collapse("show");
+                $('#collapseEight').collapse("show");
+            } else {
+
+                $("#idToken").val(idToken_);
+
+                $.getJSON("/proceed", {
+                        kycSubmitted: true,
+                        idToken: idToken_,
+                        pan: $('#inputPan').val(),
+                        panLocation: $('#panLocation').val(),
+                        yourPhotoLocation: $('#yourPhotoLocation').val(),
+                        yourProofOfIDLocation: $('#yourProofOfIDLocation').val(),
+                        yourProofOfAddressLocation: $('#yourProofOfAddressLocation').val(),
+                        relatedProofOfIDLocation: $('#relatedProofOfIDLocation').val(),
+                        prefixYourName: $('#prefixYourName').val(),
+                        yourFirstName: $('#yourFirstName').val(),
+                        yourMiddleName: $('#yourMiddleName').val(),
+                        yourLastName: $('#yourLastName').val(),
+                        prefixMaidenName: $('#prefixMaidenName').val(),
+                        maidenFirstName: $('#maidenFirstName').val(),
+                        maidenMiddleName: $('#maidenMiddleName').val(),
+                        maidenLastName: $('#maidenLastName').val(),
+                        prefixFatherOrSpouseName: $('#prefixFatherOrSpouseName').val(),
+                        fatherOrSpouseFirstName: $('#fatherOrSpouseFirstName').val(),
+                        fatherOrSpouseMiddleName: $('#fatherOrSpouseMiddleName').val(),
+                        fatherOrSpouseLastName: $('#fatherOrSpouseLastName').val(),
+                        prefixMotherName: $('#prefixMotherName').val(),
+                        maidenFirstName: $('#maidenFirstName').val(),
+                        maidenMiddleName: $('#maidenMiddleName').val(),
+                        maidenLastName: $('#maidenLastName').val(),
+                        yourBirthday: $('#yourBirthday').val(),
+                        genderSelect: $('#genderSelect').val(),
+                        maritalStatusSelect: $('#maritalStatusSelect').val(),
+                        citizenshipSelect: $('#citizenshipSelect').val(),
+                        residentialStatusSelect: $('#residentialStatusSelect').val(),
+                        occupationSelect: $('#occupationSelect').val(),
+                        poiDocumentSelect: $('#poiDocumentSelect').val(),
+                        inputIdentityNo: $('#inputIdentityNo').val(),
+                        poiExpiryDate: $('#poiExpiryDate').val(),
+                        addressProofSelect: $('#addressProofSelect').val(),
+                        inputAddressID: $('#inputAddressID').val(),
+                        poaExpiryDate: $('#poaExpiryDate').val(),
+                        addressTypeSelect: $('#addressTypeSelect').val(),
+                        inputAddressLine1: $('#inputAddressLine1').val(),
+                        inputAddressLine2: $('#inputAddressLine2').val(),
+                        inputAddressLine3: $('#inputAddressLine3').val(),
+                        inputAddressCity: $('#inputAddressCity').val(),
+                        inputAddressDistrict: $('#inputAddressDistrict').val(),
+                        addressStateSelect: $('#addressStateSelect').val(),
+                        currentAddressCountrySelect: $('#currentAddressCountrySelect').val(),
+                        currentIsCorrespondenceCheck: $('#currentIsCorrespondenceCheck').is(':checked'),
+                        inputLocalAddressLine1: $('#inputLocalAddressLine1').val(),
+                        inputLocalAddressLine2: $('#inputLocalAddressLine2').val(),
+                        inputLocalAddressLine3: $('#inputLocalAddressLine3').val(),
+                        inputLocalAddressCity: $('#inputLocalAddressCity').val(),
+                        inputLocalAddressDistrict: $('#inputLocalAddressDistrict').val(),
+                        localAddressStateSelect: $('#localAddressStateSelect').val(),
+                        localAddressCountrySelect: $('#localAddressCountrySelect').val(),
+                        inputContactEmail: $('#inputContactEmail').val(),
+                        inputContactMobile: $('#inputContactMobile').val(),
+                        inputContactTelephoneOffice: $('#inputContactTelephoneOffice').val(),
+                        inputContactTelephoneResidence: $('#inputContactTelephoneResidence').val(),
+                        fatcaCheck: $('#fatcaCheck').is(':checked'),
+                        fatcaCountrySelect: $('#fatcaCountrySelect').val(),
+                        inputTaxIdNo: $('#inputTaxIdNo').val(),
+                        inputFatcaBirthCity: $('#inputFatcaBirthCity').val(),
+                        inputFatcaBirthCountry: $('#inputFatcaBirthCountry').val(),
+                        inputFatcaAddressLine1: $('#inputFatcaAddressLine1').val(),
+                        inputFatcaAddressLine2: $('#inputFatcaAddressLine2').val(),
+                        inputFatcaAddressLine3: $('#inputFatcaAddressLine3').val(),
+                        inputFatcaAddressCity: $('#inputFatcaAddressCity').val(),
+                        inputFatcaAddressDistrict: $('#inputFatcaAddressDistrict').val(),
+                        addressStateSelect: $('#addressStateSelect').val(),
+                        fatcaAddressCountrySelect: $('#fatcaAddressCountrySelect').val(),
+                        relatedPersonTypeSelect: $('#relatedPersonTypeSelect').val(),
+                        prefixRelatedPersonName: $('#prefixRelatedPersonName').val(),
+                        relatedPersonFirstName: $('#relatedPersonFirstName').val(),
+                        relatedPersonMiddleName: $('#relatedPersonMiddleName').val(),
+                        relatedPersonLastName: $('#relatedPersonLastName').val(),
+                        relatedPersonPOISelect: $('#relatedPersonPOISelect').val(),
+                        inputRelatedIdentityNo: $('#inputRelatedIdentityNo').val(),
+                        relatedPOIExpiryDate: $('#relatedPOIExpiryDate').val(),
+                        remarksTextarea1: $('#remarksTextarea1').val(),
+                        declarationCheck: $('#declarationCheck').is(':checked'),
+                        consentCheck: $('#consentCheck').is(':checked'),
+                        applicationDate: $('#applicationDate').val(),
+                        applicationPlace: $('#applicationPlace').val()
+                    },
+                    function(data, status) {
+                        if (data.success == "true") {
+                            //whatever
+                        } else {
+                            //whatever
+                        }
+                    });
+            }
         });
 
         //function to save file

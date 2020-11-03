@@ -117,6 +117,7 @@ var handleSignedInUser = function(user) {
     document.getElementById('user-signed-out').style.display = 'none';
     user_email = user.email;
     userUid = user.uid;
+
     try {
         $(".user-only").removeClass('d-none');
         $(".non-user-only").addClass('d-none');
@@ -135,7 +136,18 @@ var handleSignedInUser = function(user) {
         // Send token to your backend via HTTPS
         // ...
         idToken_ = idToken
-        loadLessons();
+        $.getJSON("/kycsubmitted", {
+                idToken: idToken_,
+            },
+            function(data, status) {
+                if (data.kycsubmitted == "true") {
+                    $('#welcomeText').replaceWith('<h2 class="display-12 font-weight-normal">You have submitted the form already. Thank you for your submission.</h2>');
+                    $('#kyc-not-submitted').addClass('d-none');
+                } else {
+                    //whatever
+                }
+            });
+
 
     }).catch(function(error) {
         // Handle error
