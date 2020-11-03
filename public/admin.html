@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>CKYC Admin</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/5.0/firebase.js"></script>
+    <script src="config.js"></script>
+    <script src="common.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+    <script src="lib/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="lib/firebaseui.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        var host = "ckyc.drumstic.com";
+        var www_host = "www.ckyc.drumstic.com"
+        if ((host == window.location.host || www_host == window.location.host) && (window.location.protocol != 'https:')) {
+            window.location = window.location.toString().replace(/^http:/, "https:");
+        }
+    </script>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+        <a class="navbar-brand" href="/">
+            <img style="margin-right: 10px; padding: 0;" src="img/logo.svg" height="40" alt="ckyc_logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ckycNavbar" aria-controls="ckycNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <div class="collapse navbar-collapse" id="ckycNavbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active non-user-only">
+                    <a class="nav-link" href="/admin.html">Admin</a>
+                </li>
+                <li class="nav-item dropdown user-only d-none">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown09">
+                        <a id="sign-out" class="dropdown-item" href="#">Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-md-0 d-none">
+                <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="loading">Loading...</div>
+        <div id="loaded" class="hiddenfire">
+            <div id="main">
+                <div id="user-signed-in" class="hiddenfire">
+                    <div id="ckycin" class="position-relative overflow-hidden p-3 m-md-3 text-center bg-white">
+                        <h1 class="display-4 font-weight-normal">KYC Admin</h1>
+                        <div id="welcomeText">
+                            <h2 class="display-12 font-weight-normal"></h2>
+                        </div>
+                        <table id="kyclist" class="table">
+                            <thead>
+                                <tr>
+                                    <th data-field="id" scope="col">#</th>
+                                    <th data-field="email" scope="col">email</th>
+                                    <th data-field="mobile" scope="col">mobile</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div></div>
+        </div>
+
+        <div id="user-signed-out" class="hiddenfire">
+
+            <div id="ckycmain" class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-white">
+                <div class="col-md-6 p-lg-6 mx-auto my-6">
+                    <div class="text-center">
+                        <img src="img/people.png" class="rounded" alt="people">
+                    </div>
+                    <h1 class="display-4 font-weight-normal">KYC Admin</h1>
+                    <p class="lead font-weight-normal">Sign in to view submitted KYC forms</p>
+                    <div id="firebaseui-spa">
+                        <!-- <h5>Single Page Application mode:</h5> -->
+                        <div id="firebaseui-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <span class="text-muted">
+          <a href="https://ckyc.drumstic.com" target="_blank">KYC app</a> by
+                                    <a href="https://www.youtube.com/channel/UCiJBsEttv5Kvv0grhQDn73A" target="_blank">Venkatasubramanian B</a>
+                                    <br /> By using this web application, you agree to the <a href="terms.html" target="_blank">terms</a>
+                                    </span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+    <script src="adminapp.js"></script>
+</body>
+
+</html>

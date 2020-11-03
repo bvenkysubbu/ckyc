@@ -39,6 +39,79 @@ router.get("/ask", function(req, res) {
     res.sendFile(path + "ask.html");
 });
 
+router.get("/isadmin", function(req, res) {
+    console.log("/isadmin");
+    var idToken = req.query.idToken;
+    admin.auth().verifyIdToken(idToken)
+        .then(function(decodedToken) {
+            var uid = decodedToken.uid;
+            var errors = false;
+
+            admin.auth().getUser(uid)
+                .then(async function(userRecord) {
+                    var docRef = db.collection('ckycadmins').doc(userRecord.uid);
+                    var doc = await docRef.get();
+                    if (!doc.exists) {
+                        console.log('No such document!');
+                        return res.end('{"isadmin":"false"}');
+                    } else {
+                        return res.end('{"isadmin":"true"}');
+                    }
+                })
+                .catch(function(error) {
+                    return res.end('{"uid":"invalid"}');
+                    console.log("Error fetching user data:", error);
+                });
+            // ...
+        }).catch(function(error) {
+            // Handle error
+            return res.end('{"uid":"invalid"}');
+        });
+
+});
+
+router.get("/getkycs", function(req, res) {
+    console.log("/getkycs");
+    var idToken = req.query.idToken;
+    admin.auth().verifyIdToken(idToken)
+        .then(function(decodedToken) {
+            var uid = decodedToken.uid;
+            var errors = false;
+
+            admin.auth().getUser(uid)
+                .then(async function(userRecord) {
+                    var docRef = db.collection('ckycadmins').doc(userRecord.uid);
+                    var doc = await docRef.get();
+                    if (!doc.exists) {
+                        console.log('No such document!');
+                        return res.end('{"isadmin":"false"}');
+                    } else {
+                        const docs = [];
+                        const ckycRef = db.collection('ckyc');
+                        const snapshot = await ckycRef.get();
+                        snapshot.forEach(doc => {
+                            const data = doc.data();
+                            docs.push({
+                                id: doc.id,
+                                email: doc.get('inputContactEmail'),
+                                mobile: doc.get('inputContactMobile')
+                            });
+                        });
+                        return res.end(JSON.stringify(docs));
+                    }
+                })
+                .catch(function(error) {
+                    return res.end('{"uid":"invalid"}');
+                    console.log("Error fetching user data:", error);
+                });
+            // ...
+        }).catch(function(error) {
+            // Handle error
+            return res.end('{"uid":"invalid"}');
+        });
+
+});
+
 router.get("/kycsubmitted", function(req, res) {
     console.log("/kycsubmitted");
     var idToken = req.query.idToken;
@@ -52,18 +125,11 @@ router.get("/kycsubmitted", function(req, res) {
                     console.log(userRecord.uid);
                     var docRef = db.collection('ckyc').doc(userRecord.uid);
                     var doc = await docRef.get();
-                    // const citiesRef = db.collection('ckyc');
-                    // const snapshot = citiesRef.get();
-                    // snapshot.forEach(doc => {
-                    //     console.log(doc.id, '=>', doc.data());
-                    // });
-                    // const uidRef = db.collection('ckyc').doc(userRecord.uid);
-                    // const doc = uidRef.get();
                     if (!doc.exists) {
                         console.log('No such document!');
                         return res.end('{"kycsubmitted":"false"}');
                     } else {
-                        console.log('Document data:', doc.data());
+                        // console.log('Document data:', doc.data());
                         return res.end('{"kycsubmitted":"true"}');
                     }
                 })

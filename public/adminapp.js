@@ -132,15 +132,22 @@ var handleSignedInUser = function(user) {
         // Send token to your backend via HTTPS
         // ...
         idToken_ = idToken
-        $.getJSON("/kycsubmitted", {
+        $.getJSON("/isadmin", {
                 idToken: idToken_,
             },
             function(data, status) {
-                if (data.kycsubmitted == "true") {
-                    $('#welcomeText').replaceWith('<h2 class="display-12 font-weight-normal">You have submitted the form already. Thank you for your submission.</h2>');
-                    $('#kyc-not-submitted').addClass('d-none');
+                if (data.isadmin == "true") {
+                    $('#welcomeText').replaceWith('<h2 class="display-12 font-weight-normal">Welcome Admin, here is the list of submitted KYCs.</h2>');
+                    $.getJSON("/getkycs", {
+                            idToken: idToken_,
+                        },
+                        function(data1, status1) {
+                            $('#kyclist').bootstrapTable({
+                                data: data1
+                            });
+                        });
                 } else {
-                    //whatever
+                    $('#welcomeText').replaceWith('<h2 class="display-12 font-weight-normal">You are not an admin.</h2>');
                 }
             });
     }).catch(function(error) {
