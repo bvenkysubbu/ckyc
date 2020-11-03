@@ -9,6 +9,7 @@
 var user_email = 'user@email';
 // Created a Storage Reference with root dir
 // var storageRef = firebase.storage().ref();
+var userUid = '';
 
 function getUiConfig() {
     return {
@@ -115,6 +116,7 @@ var handleSignedInUser = function(user) {
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
     user_email = user.email;
+    userUid = user.uid;
     try {
         $(".user-only").removeClass('d-none');
         $(".non-user-only").addClass('d-none');

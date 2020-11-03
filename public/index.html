@@ -63,10 +63,15 @@
                 <div id="user-signed-in" class="hiddenfire">
                     <div id="ckycin" class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-white">
                         <h1 class="display-4 font-weight-normal">KYC Form</h1>
+                        <h2 class="display-12 font-weight-normal">You haven't submitted the form before.<br> Please fill and submit the form below.</h2>
                     </div>
                     <form id="kyc-form" class="needs-validation" novalidate>
                         <input id="idToken" name="idToken" type="hidden">
                         <input id="panLocation" name="panLocation" type="hidden">
+                        <input id="yourPhotoLocation" name="yourPhotoLocation" type="hidden">
+                        <input id="yourProofOfIDLocation" name="yourProofOfIDLocation" type="hidden">
+                        <input id="yourProofOfAddressLocation" name="yourProofOfAddressLocation" type="hidden">
+                        <input id="relatedProofOfIDLocation" name="relatedProofOfIDLocation" type="hidden">
                         <div class="accordion" id="accordionExample">
                             <div id="headingOne" class="col-md-12">
                                 <h2 class="mb-0">
@@ -79,10 +84,19 @@
                                     <div class="form-group col-md-6">
                                         <label for="inputPan">PAN</label>
                                         <input type="text" class="form-control" id="inputPan" placeholder="PAN" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
                                     </div>
                                     <div class="custom-file form-group col-md-6">
                                         <label for="exampleFormControlFile1">Duly Attested Copy of your PAN card</label>
-                                        <input type="file" onchange="uploadPan()" class="form-control-file" id="panFile1">
+                                        <input type="file" onchange="uploadPan()" class="form-control-file" id="panFile1" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please choose a file.
+                                        </div>
                                     </div>
                                 </div>
                                 <h4 class="display-10 font-weight-normal">Your Name</h4>
@@ -177,6 +191,20 @@
                                         <input type="text" class="form-control" id="maidenLastName" placeholder="Mother Last Name">
                                     </div>
                                 </div>
+                                <h4 class="display-10 font-weight-normal">Your Photo</h4>
+                                <div class="form-row">
+                                    <div class="custom-file form-group col-md-6">
+                                        <input type="file" onchange="uploadYourPhoto()" class="form-control-file" id="yourPhotoFile1" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please choose a file.
+                                        </div>
+                                    </div>
+
+                                </div>
+
                                 <h4 class="display-10 font-weight-normal">Your Date of Birth</h4>
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
@@ -561,8 +589,8 @@
                                     <input type="date" class="form-control" id="poaExpiryDate" name="poaExpiryDate">
                                 </div>
                                 <div class="custom-file form-group col-md-4">
-                                    <label for="poAFile">Certified Copy of your Document</label>
-                                    <input type="file" onchange="uploadPOA()" class="form-control-file" id="poiFile">
+                                    <label for="poaFile">Certified Copy of your Document</label>
+                                    <input type="file" onchange="uploadPOA()" class="form-control-file" id="poaFile">
                                 </div>
                             </div>
                             <h4 class="display-10 font-weight-normal">Current/Permanent/Overseas Address Details</h4>
@@ -2083,16 +2111,21 @@
             var form = document.getElementById('kyc-form');
 
             $.getJSON("/proceed", {
-                idToken: idToken_,
-                pan: $('#inputPan').val(),
-                panLocation: $('#panLocation').val()
-            }, function(data, status) {
-                if (data.success == "true") {
-                    //whatever
-                } else {
-                    //whatever
-                }
-            });
+                    idToken: idToken_,
+                    pan: $('#inputPan').val(),
+                    panLocation: $('#panLocation').val(),
+                    yourPhotoLocation: $('#yourPhotoLocation').val(),
+                    yourProofOfIDLocation: $('#yourProofOfIDLocation').val(),
+                    yourProofOfAddressLocation: $('#yourProofOfAddressLocation').val(),
+                    relatedProofOfIDLocation: $('#relatedProofOfIDLocation').val()
+                },
+                function(data, status) {
+                    if (data.success == "true") {
+                        //whatever
+                    } else {
+                        //whatever
+                    }
+                });
         });
 
         //function to save file
@@ -2110,7 +2143,7 @@
             };
 
             // Upload file and metadata to the object 'images/mountains.jpg'
-            var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+            var uploadTask = storageRef.child(userUid + '/pan/' + file.name).put(file, metadata);
 
             // Listen for state changes, errors, and completion of the upload.
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -2149,6 +2182,238 @@
                     // Upload completed successfully, now we can get the download URL
                     uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                         $('#panLocation').val(downloadURL);
+                        console.log('File available at', downloadURL);
+                    });
+                });
+        }
+        //function to save file
+        function uploadYourPhoto() {
+
+            // Created a Storage Reference with root dir
+            var storageRef = firebase.storage().ref();
+            // Get the file from DOM
+            var file = document.getElementById("yourPhotoFile1").files[0];
+            console.log(file);
+
+            // Create the file metadata
+            var metadata = {
+                contentType: 'image/jpeg'
+            };
+
+            // Upload file and metadata to the object 'images/mountains.jpg'
+            var uploadTask = storageRef.child(userUid + '/yourphoto/' + file.name).put(file, metadata);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function(snapshot) {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                function(error) {
+
+                    // A full list of error codes is available at
+                    // https://firebase.google.com/docs/storage/web/handle-errors
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            // User doesn't have permission to access the object
+                            break;
+
+                        case 'storage/canceled':
+                            // User canceled the upload
+                            break;
+
+                        case 'storage/unknown':
+                            // Unknown error occurred, inspect error.serverResponse
+                            break;
+                    }
+                },
+                function() {
+                    // Upload completed successfully, now we can get the download URL
+                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                        $('#yourPhotoLocation').val(downloadURL);
+                        console.log('File available at', downloadURL);
+                    });
+                });
+        }
+        //function to save file
+        function uploadPOI() {
+
+            // Created a Storage Reference with root dir
+            var storageRef = firebase.storage().ref();
+            // Get the file from DOM
+            var file = document.getElementById("poiFile").files[0];
+            console.log(file);
+
+            // Create the file metadata
+            var metadata = {
+                contentType: 'image/jpeg'
+            };
+
+            // Upload file and metadata to the object 'images/mountains.jpg'
+            var uploadTask = storageRef.child(userUid + '/poi/' + file.name).put(file, metadata);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function(snapshot) {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                function(error) {
+
+                    // A full list of error codes is available at
+                    // https://firebase.google.com/docs/storage/web/handle-errors
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            // User doesn't have permission to access the object
+                            break;
+
+                        case 'storage/canceled':
+                            // User canceled the upload
+                            break;
+
+                        case 'storage/unknown':
+                            // Unknown error occurred, inspect error.serverResponse
+                            break;
+                    }
+                },
+                function() {
+                    // Upload completed successfully, now we can get the download URL
+                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                        $('#yourProofOfIDLocation').val(downloadURL);
+                        console.log('File available at', downloadURL);
+                    });
+                });
+        }
+        //function to save file
+        function uploadPOA() {
+
+            // Created a Storage Reference with root dir
+            var storageRef = firebase.storage().ref();
+            // Get the file from DOM
+            var file = document.getElementById("poaFile").files[0];
+            console.log(file);
+
+            // Create the file metadata
+            var metadata = {
+                contentType: 'image/jpeg'
+            };
+
+            // Upload file and metadata to the object 'images/mountains.jpg'
+            var uploadTask = storageRef.child(userUid + '/poa/' + file.name).put(file, metadata);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function(snapshot) {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                function(error) {
+
+                    // A full list of error codes is available at
+                    // https://firebase.google.com/docs/storage/web/handle-errors
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            // User doesn't have permission to access the object
+                            break;
+
+                        case 'storage/canceled':
+                            // User canceled the upload
+                            break;
+
+                        case 'storage/unknown':
+                            // Unknown error occurred, inspect error.serverResponse
+                            break;
+                    }
+                },
+                function() {
+                    // Upload completed successfully, now we can get the download URL
+                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                        $('#yourProofOfAddressLocation').val(downloadURL);
+                        console.log('File available at', downloadURL);
+                    });
+                });
+        }
+        //function to save file
+        function uploadRelatedPOI() {
+
+            // Created a Storage Reference with root dir
+            var storageRef = firebase.storage().ref();
+            // Get the file from DOM
+            var file = document.getElementById("relatedPOIFile").files[0];
+            console.log(file);
+
+            // Create the file metadata
+            var metadata = {
+                contentType: 'image/jpeg'
+            };
+
+            // Upload file and metadata to the object 'images/mountains.jpg'
+            var uploadTask = storageRef.child(userUid + '/relatedPOI/' + file.name).put(file, metadata);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function(snapshot) {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                function(error) {
+
+                    // A full list of error codes is available at
+                    // https://firebase.google.com/docs/storage/web/handle-errors
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            // User doesn't have permission to access the object
+                            break;
+
+                        case 'storage/canceled':
+                            // User canceled the upload
+                            break;
+
+                        case 'storage/unknown':
+                            // Unknown error occurred, inspect error.serverResponse
+                            break;
+                    }
+                },
+                function() {
+                    // Upload completed successfully, now we can get the download URL
+                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                        $('#relatedProofOfIDLocation').val(downloadURL);
                         console.log('File available at', downloadURL);
                     });
                 });

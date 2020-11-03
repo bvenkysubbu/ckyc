@@ -11,14 +11,7 @@ var port_no = 443;
 var serviceAccount = require("./cybrilla-kyc-firebase-adminsdk-rgcg6-c348d38a87.json");
 
 var http = require('http');
-// var https = require('https');
-// var privateKey = fs.readFileSync('sslcert/privkey.pem', 'utf8');
-// var certificate = fs.readFileSync('sslcert/cert.pem', 'utf8');
-
-// var credentials = { key: privateKey, cert: certificate };
-
 var httpServer = http.createServer(app);
-// var httpsServer = https.createServer(credentials, app);
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -46,53 +39,6 @@ router.get("/ask", function(req, res) {
     res.sendFile(path + "ask.html");
 });
 
-router.get("/user", function(req, res) {
-    var idToken = req.query.idToken;
-    admin.auth().verifyIdToken(idToken)
-        .then(function(decodedToken) {
-            var uid = decodedToken.uid;
-
-            admin.auth().getUser(uid)
-                .then(function(userRecord) {
-                    // See the UserRecord reference doc for the contents of userRecord.
-                    console.log("Successfully fetched user data:", userRecord.toJSON());
-                    console.log("user email is " + userRecord.email);
-
-                    var con = mysql.createConnection({
-                        host: "tymlydb",
-                        user: "root",
-                        password: "@cceln0micS",
-                        database: instance_env
-                    });
-
-                    con.connect(function(err) {
-                        if (err) {
-                            console.log("Error connecting to Db");
-                            return;
-                        }
-                        console.log("Connection established");
-                    });
-
-                    con.query("SELECT edit_link,view_link FROM noticeusers where name = ?", userRecord.email, function(err, rows) {
-                        if (err) throw err;
-
-                        console.log("Data received from Db:\n");
-                        console.log(rows);
-                        res.writeHead(200, { "Content-Type": "application/json" });
-                        res.end(JSON.stringify(rows));
-                    });
-                })
-                .catch(function(error) {
-                    return res.end('{"uid":"invalid"}');
-                    console.log("Error fetching user data:", error);
-                });
-            // ...
-        }).catch(function(error) {
-            // Handle error
-            return res.end('{"uid":"invalid"}');
-        });
-});
-
 router.get("/proceed", function(req, res) {
     console.log("/proceed");
     var idToken = req.query.idToken;
@@ -112,7 +58,11 @@ router.get("/proceed", function(req, res) {
                     var docRef = db.collection('ckyc').doc(userRecord.uid);
                     docRef.set({
                         pan: req.query.pan,
-                        panLocation: req.query.panLocation
+                        panLocation: req.query.panLocation,
+                        yourPhotoLocation: req.query.yourPhotoLocation,
+                        yourProofOfIDLocation: req.query.yourProofOfIDLocation,
+                        yourProofOfAddressLocation: req.query.yourProofOfAddressLocation,
+                        relatedProofOfIDLocation: req.query.relatedProofOfIDLocation
                     });
                 })
                 .catch(function(error) {
