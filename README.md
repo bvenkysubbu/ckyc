@@ -17,3 +17,8 @@ docker build -t bvenkysubbu/ckyc .
 docker tag bvenkysubbu/ckyc registry.gitlab.com/bvenkysubbu/ckyc
 docker push registry.gitlab.com/bvenkysubbu/ckyc
 ```
+
+# Run the container
+```
+docker pull registry.gitlab.com/bvenkysubbu/ckyc && docker rm -f ckyc; docker run -d --net drumstic_network --restart unless-stopped -v /root/tymly_play/.ssh:/root/.ssh -P --publish 8380:8080 --publish 6222:22 --name ckyc registry.gitlab.com/bvenkysubbu/ckyc
+```
