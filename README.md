@@ -1,6 +1,5 @@
 # ckyc
-Know Your Client Application Form
-Open https://ckyc.drusmtic.com/
+Know Your Client Application Form - https://ckyc.drusmtic.com/
 
 # To Run Locally
 ```
