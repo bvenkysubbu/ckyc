@@ -1,13 +1,8 @@
 var express = require("express");
 var app = express();
 var router = express.Router();
-var mysql = require("mysql");
-var fs = require("fs-extra");
 var admin = require("firebase-admin");
 var path = __dirname + "/public/";
-var instance_env = "tymly";
-var exec = require("ssh-exec");
-var port_no = 443;
 var serviceAccount = require("./cybrilla-kyc-firebase-adminsdk-rgcg6-c348d38a87.json");
 
 var http = require('http');

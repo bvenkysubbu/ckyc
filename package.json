@@ -6,9 +6,6 @@
     },
     "dependencies": {
         "express": "latest",
-        "fs-extra": "latest",
-        "firebase-admin": "latest",
-        "mysql": "latest",
-        "ssh-exec": "latest"
+        "firebase-admin": "latest"
     }
 }
