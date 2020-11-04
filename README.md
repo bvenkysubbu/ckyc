@@ -7,8 +7,9 @@ docker rm -f ckyc
 docker build -t bvenkysubbu/ckyc .
 docker run --name ckyc -p 49160:8080 -d bvenkysubbu/ckyc
 docker logs --follow ckyc
-Open http://localhost:49160/
 ```
+Open http://localhost:49160/
+
 # Push To Container Registry
 ```
 docker rm -f ckyc
